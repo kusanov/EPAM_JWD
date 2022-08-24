@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+  <servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>by.epam.kusanov.restaurant.controller.Controller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/Controller</url-pattern>
+  </servlet-mapping>
+<!--    <servlet>-->
+<!--    <servlet-name>reg</servlet-name>-->
+<!--    <jsp-file>/view/reg_success.jsp</jsp-file>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>reg</servlet-name>-->
+<!--    <url-pattern>/view/reg_success</url-pattern>-->
+<!--  </servlet-mapping>-->
+
+  <filter>
+    <display-name>RequestLoggingFilter</display-name>
+    <filter-name>RequestLoggingFilter</filter-name>
+    <filter-class>by.epam.kusanov.restaurant.controller.RequestLoggingFilter</filter-class>
+  </filter>
+  <filter>
+    <display-name>CharsetFilter</display-name>
+    <filter-name>CharsetFilter</filter-name>
+    <filter-class>by.epam.kusanov.restaurant.controller.CharsetFilter</filter-class>
+    <init-param>
+      <param-name>characterEncoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharsetFilter</filter-name>
+    <url-pattern>/Controller</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>RequestLoggingFilter</filter-name>
+    <url-pattern>/Controller</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>by.epam.kusanov.restaurant.controller.RestaurantCtxListener</listener-class>
+  </listener>
+</web-app>

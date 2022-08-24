@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<schema xmlns:cmn="http://NamespaceTest.com/CommonTypes"
+	targetNamespace="http://NamespaceTest.com/OrderTypes"
+	xmlns="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified">
+
+
+	<import namespace="http://NamespaceTest.com/CommonTypes"
+		schemaLocation="CommonTypes.xsd" />
+		
+	<complexType name="OrderType">
+		<sequence>
+			<element maxOccurs="unbounded" name="Item">
+				<complexType>
+					<sequence>
+						<element name="ProductName" type="string" />
+						<element name="Quantity" type="int" />
+						<element name="UnitPrice" type="cmn:PriceType" />
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+</schema>

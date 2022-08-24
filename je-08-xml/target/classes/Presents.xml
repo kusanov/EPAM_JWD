@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pr:presents xmlns:pr="http://www.epamrd.org/Presents"
+   xmlns:s="http://www.epamrd.org/sock"
+	xmlns:c="http://www.epamrd.org/card"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.epamrd.org/Presents Presents.xsd">
+	
+	<present>
+		<sock s:size="4">
+			<s:color>red</s:color>
+		</sock>
+		<card>
+			<c:message>Happy New Year!</c:message>
+			<c:color>gold</c:color>
+		</card>	
+	</present>
+
+</pr:presents>

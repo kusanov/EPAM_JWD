@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+         targetNamespace="http://www.epamrd.org/sock"
+	xmlns:tns="http://www.epamrd.org/sock" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="qualified">
+
+	<complexType name="SockType">
+		<sequence>
+			<element name="color" type="string"/>
+		</sequence>
+		<attribute name="size" type="integer" />
+	</complexType>
+
+</schema>

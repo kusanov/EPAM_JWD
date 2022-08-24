@@ -1,0 +1,6 @@
+out/
+target/
+lib/
+info/
+.idea/
+logs/

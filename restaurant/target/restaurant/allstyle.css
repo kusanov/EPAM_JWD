@@ -1,0 +1,145 @@
+html,
+body {
+    height: 100%;
+}
+#wrap {
+    min-height: 100%;
+    background-image: url(images/menu.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.menu_left
+{
+    width : 80%;
+    padding:10px;
+    height: 500px;
+    background-image: url(images/piza_tower.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.button_side_menu{
+    width: 100px
+}
+main {
+    padding-bottom: 100px;
+}
+footer {
+    margin-top: -45px;
+    height: 45px;
+    padding : 5px;
+}
+
+header
+{
+    height: 80px;
+    background-color:red;
+    color: white;
+    text-align:left;
+    font-size: 250%;
+}
+
+
+#menu_line td
+{
+    text-align:center;
+    background-color: white;
+
+}
+
+
+.header_panel
+{
+    height: 80px;
+    background-color:Gray;
+
+    color: white;
+    text-align:left;
+    font-size: 250%;
+}
+
+.login_container
+{
+    background-color: silver;
+    width: 200px;
+    padding: 50px;
+    margin: auto;
+}
+
+.languages
+{
+    background-color: purple;
+    text-align: right;
+    float: right;
+    margin : 15px;
+}
+
+.registration_container
+{
+    background-color: silver;
+    width: 300px;
+    padding: 50px;
+    margin: auto;
+}
+
+.main_greeting
+{
+    color: green;
+    background-color: white;
+    text-align: center;
+}
+
+.new_dish
+{
+    background-image: url(images/new_dish.jpg);
+    width: 300px;
+    padding: 50px;
+    margin: auto;
+}
+
+
+.Absolute-Center
+{
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.register_block
+{
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+.footer_n
+{
+    height:45px;
+    padding:10px;
+}
+
+.menu_itm
+{
+    background-color: lightseagreen;
+    padding-left:5px;
+    padding-bottom:3px;
+}
+
+.login_fail_message
+{
+    color: red;
+    text-align: center;
+}
+
+.menu_block
+{
+    width : 80%;
+    padding:10px;
+    margin : 10px;
+    height: 100px;
+}
+
+.confirm_tbl
+{
+    border-spacing: 10px 20px;
+}
