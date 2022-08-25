@@ -67,15 +67,11 @@
 																				<input type="hidden" name="command" value="block_user" />
 																				<input type="hidden" name="userId" value="${user.userId}" />
 																					<input type="checkbox" name="active"
-<%--																						   value="${user.isActive()}"--%>
-																						   checked="${user.isActive()}"
-<%--																							<c:if test="${user.isActive()==true}">--%>
-<%--																								checked="checked"--%>
-<%--&lt;%&ndash;																								   = "true"&ndash;%&gt;--%>
-<%--																							</c:if>--%>
+																						   value="${user.isActive()}"
+																							<c:if test="${user.isActive()}">
+																								checked="checked"
+																							</c:if>
 																					/>
-<%--																				<input type="hidden" name="isActive" value="${user.isActive()}" />--%>
-
 																				<input type="submit" value="Изменить статус" />
 																			</form>
 																			</td>

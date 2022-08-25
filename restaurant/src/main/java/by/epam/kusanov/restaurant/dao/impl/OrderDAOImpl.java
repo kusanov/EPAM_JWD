@@ -38,6 +38,7 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String GET_ORDER_DISHES = "select * FROM restaurant.order_details where order_id = ?";
 
     private static final String EDIT_ORDER_STATUS = "UPDATE restaurant.orders SET status_id=? where id=?";
+    private static final String SET_ORDER_COST = "UPDATE restaurant.orders SET cost=? where id=?";
     private static final String TBL_COLUMN_ORDER_ID = "order_id";
 
 
@@ -142,9 +143,33 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
+    public void setCost(int orderId,double ordersum) throws ExceptionDAO {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+
+            preparedStatement = connection.prepareStatement(SET_ORDER_COST);
+            preparedStatement.setDouble(1, ordersum);
+            preparedStatement.setInt(2, orderId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (ExceptionConnectionPool e) {
+            throw new ExceptionDAO("Error in Connection pool while confirm Order", e);
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Error while confirm Order", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+
+    }
+
+    @Override
     public Order getOrder(int orderId) throws ExceptionDAO {
         PreparedStatement ps = null;
-        PreparedStatement ps2 = null;
+        PreparedStatement ps2;
         Connection con = null;
 
         try {
@@ -162,24 +187,18 @@ public class OrderDAOImpl implements OrderDAO {
             ResultSet rs2 = ps2.executeQuery();
 
             Map<Dish, Integer> dishes = new HashMap<>();
-            System.out.println("00");
 
             while (rs2.next()) {
-                System.out.println("22");
 
                 Dish dish = DAOFactory.getInstance().getDishDAO().getDishById(rs2.getInt(2));
 
-                System.out.println("33");
-
                 int dishCount = rs2.getInt(3);
-
 //                if (dishes.containsKey(dish)) {
 //                    dishes.put(dish, dishes.get(dish) + dishCount);
 //                } else {
                     dishes.put(dish, dishCount);
 //                }
             }
-            System.out.println("1111");
                 if (rs.getRow() == 1) {
 
                     return new Order(
@@ -285,35 +304,35 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public int getCurrentOrderId(int userId) throws ExceptionDAO {
 
-        PreparedStatement ps = null;
-        Connection con = null;
-        ResultSet rs = null;
+//        PreparedStatement ps = null;
+//        Connection con = null;
+//        ResultSet rs = null;
         int orderId = 0;
-
-        try {
-            con = connectionPool.takeConnection();
-            ps = con.prepareStatement(GET_CURRENT_ORDER_ID_BY_USER_SQL);
-            ps.setInt(1, userId);
-
-            rs = ps.executeQuery();
-
-            if (rs == null) {
-                return 0;
-            }
-
-            if (rs.next()) {
-                orderId = rs.getInt(TBL_COLUMN_ORDER_ID);
-            }
-
+//
+//        try {
+//            con = connectionPool.takeConnection();
+//            ps = con.prepareStatement(GET_CURRENT_ORDER_ID_BY_USER_SQL);
+//            ps.setInt(1, userId);
+//
+//            rs = ps.executeQuery();
+//
+//            if (rs == null) {
+//                return 0;
+//            }
+//
+//            if (rs.next()) {
+//                orderId = rs.getInt(TBL_COLUMN_ORDER_ID);
+//            }
+//
             return orderId;
-
-        } catch (ExceptionConnectionPool e) {
-            throw new ExceptionDAO("Error in Connection pool while getting OrderId", e);
-        } catch (SQLException e) {
-            throw new ExceptionDAO("Error while getting OrderId", e);
-        } finally {
-            connectionPool.closeConnection(con, ps);
-        }
+//
+//        } catch (ExceptionConnectionPool e) {
+//            throw new ExceptionDAO("Error in Connection pool while getting OrderId", e);
+//        } catch (SQLException e) {
+//            throw new ExceptionDAO("Error while getting OrderId", e);
+//        } finally {
+//            connectionPool.closeConnection(con, ps);
+//        }
     }
 
 

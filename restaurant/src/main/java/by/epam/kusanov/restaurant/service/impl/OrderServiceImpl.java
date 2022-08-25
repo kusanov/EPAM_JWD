@@ -93,4 +93,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getKitchenOrders() throws ExceptionDAO {
         return orderDAO.getKitchenOrders();    }
+
+    @Override
+    public void setCost(int orderId,double ordersum) throws ExceptionDAO {
+
+        orderDAO.setCost(orderId,ordersum);
+    }
 }

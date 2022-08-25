@@ -6,14 +6,14 @@ public class Invoice implements Serializable {
     private int invoiceId;
     private int orderID;
     private User user;
-    private double sum;
+    private double cost;
     private Payment payment;
 
-    public Invoice(int invoiceId, int orderID,User user, double sum, Payment payment) {
+    public Invoice(int invoiceId, int orderID,User user, double cost, Payment payment) {
         this.invoiceId = invoiceId;
         this.orderID = orderID;
         this.user = user;
-        this.sum = sum;
+        this.cost = cost;
         this.payment = payment;
     }
 
@@ -33,12 +33,12 @@ public class Invoice implements Serializable {
         this.orderID = orderID;
     }
 
-    public double getSum() {
-        return sum;
+    public double getCost() {
+        return cost;
     }
 
-    public void setSum(double sum) {
-        this.sum = sum;
+    public void setCost(double sum) {
+        this.cost = sum;
     }
 
     public Payment getPayment() {

@@ -17,10 +17,10 @@ public enum CommandName {
     GO_TO_USER_ORDERS,
     GO_TO_USERS,
     GO_TO_MENU,
-    SHOW_DISH,
     ADD_DISH,
     DEL_FROM_ORDER,
     GET_ORDER,
     CONFIRM_ORDER,
+    SAVE_ORDER,
     CONFIRM_INVOICE
 }

@@ -19,7 +19,7 @@
             <table border="0">
                     <tr>
                         <td>
-                            <c:if test="${sessionScope.user.userId==1}">
+                            <c:if test="${sessionScope.user.role.roleId==1}">
                                 <form action="Controller" method="get" class="button_side_menu">
                                     <input type="hidden" name="command" value="go_to_menu" />
                                     <input type="submit" value="Редактор меню" />
@@ -29,7 +29,7 @@
                     </tr>
                 <tr>
                     <td>
-                        <c:if test="${sessionScope.user.userId==1}">
+                        <c:if test="${sessionScope.user.role.roleId==1}">
                             <form action="Controller" method="get" class="button_side_menu">
                                 <input type="hidden" name="command" value="go_to_users" />
                                 <input type="submit" value="Управление доступами" />
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <c:if test="${sessionScope.user.userId==1}">
+                        <c:if test="${sessionScope.user.role.roleId==1}">
                             <form action="Controller" method="get" class="button_side_menu">
                                 <input type="hidden" name="command" value="go_to_kitchen" />
                                 <input type="submit" value="Кухня" />

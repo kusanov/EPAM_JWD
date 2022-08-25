@@ -80,7 +80,7 @@
 								<c:forEach items="${requestScope.user_invoices}" var="invoice">
 									<tr>
 										<td>${invoice.invoiceId}</td>
-										<td>${invoice.sum}</td>
+										<td>${invoice.cost}</td>
 										<td>${invoice.payment.payment}</td>
 										<td>
 											<c:if test="${invoice.payment.id==1}">

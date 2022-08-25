@@ -14,7 +14,6 @@
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
 			<fmt:message bundle="${loc}" key="local.catalog.label.price" var="priceLabel" />
 			<fmt:message bundle="${loc}" key="local.catalog.label.currency" var="priceCurrency" />
-			<fmt:message bundle="${loc}" key="local.item.cart.addToCartBtn" var="addToCartBtn" />
 
 
 

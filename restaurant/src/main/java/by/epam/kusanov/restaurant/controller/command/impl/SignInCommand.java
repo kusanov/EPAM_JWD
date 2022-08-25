@@ -3,8 +3,6 @@ package by.epam.kusanov.restaurant.controller.command.impl;
 import by.epam.kusanov.restaurant.bean.User;
 import by.epam.kusanov.restaurant.controller.command.Command;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionDAO;
-import by.epam.kusanov.restaurant.service.OrderService;
-import by.epam.kusanov.restaurant.service.PaymentService;
 import by.epam.kusanov.restaurant.service.UserService;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
 import by.epam.kusanov.restaurant.service.factory.ServiceFactory;
@@ -27,16 +25,13 @@ public class SignInCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        String login = req.getParameter(REQUEST_PARAMETER_LOGIN);
-        String password = req.getParameter(REQUEST_PARAMETER_PASSWORD);
-
-        User authorizedUser;
-
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
-        OrderService orderService = serviceFactory.getOrderService();
-        PaymentService paymentService = serviceFactory.getPaymentService();
         HttpSession session = req.getSession(true);
+
+        String login = req.getParameter(REQUEST_PARAMETER_LOGIN);
+        String password = req.getParameter(REQUEST_PARAMETER_PASSWORD);
+        User authorizedUser;
 
         try {
             authorizedUser = userService.signIn(login, password);
@@ -47,19 +42,7 @@ public class SignInCommand implements Command {
             }
             session.setAttribute(USER_SESSION_ATTR, authorizedUser);
 
-//            List<Order> userOrders = orderService.getUserOrders(authorizedUser.getUserId());
-//
-//            if (userOrders != null) {
-//                session.setAttribute(USER_ORDERS, userOrders);
-//            }
-//            List<Invoice> userInvoices = paymentService.getUserInvoices(authorizedUser.getUserId());
-//
-//            if (userInvoices != null) {
-//                session.setAttribute(USER_INVOICES, userInvoices);
-//            }
-
             resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
-
         } catch (ServiceException | ExceptionDAO e) {
             // log
             resp.sendRedirect(REDIRECT_COMMAND_ERROR);

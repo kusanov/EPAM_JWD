@@ -20,4 +20,6 @@ public interface OrderService {
 
 
     List<Order> getKitchenOrders() throws ExceptionDAO;
+
+    void setCost(int orderId,double ordersum) throws ExceptionDAO;
 }

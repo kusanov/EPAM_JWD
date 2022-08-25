@@ -55,16 +55,7 @@
 										<td>${order.date}</td>
 										<td>${order.cost}</td>
 										<td>${order.orderStatus.orderStatus}</td>
-<%--										<td>--%>
-<%--											<c:if test="${order.orderStatus.id==1}">--%>
-<%--											<form action="Controller" method="post">--%>
-<%--												<input type="hidden" name="command" value="confirm_order" />--%>
-<%--												<input type="hidden" name="orderId" value="${order.id}" />--%>
-<%--												<input type="submit" value="Ready" />--%>
-<%--											</form>--%>
-<%--											</c:if>--%>
 
-<%--										</td>--%>
 									</tr>
 								</c:forEach>
 							</table>
@@ -80,7 +71,7 @@
 								<c:forEach items="${requestScope.user_invoices}" var="invoice">
 									<tr>
 										<td>${invoice.invoiceId}</td>
-										<td>${invoice.sum}</td>
+										<td>${invoice.cost}</td>
 										<td>${invoice.payment.payment}</td>
 										<td>
 											<c:if test="${invoice.payment.id==1}">

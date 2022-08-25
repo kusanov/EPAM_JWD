@@ -17,35 +17,29 @@ import java.util.Map;
 public class PaymentDAOImpl implements PaymentDAO {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static final String INSERT_INVOICE_QUERY = "INSERT INTO restaurant.invoices (order_id,user_id,sum,payment_id) VALUES(?,?,?,?)";
-    private static final String INSERT_PAYMENT_QUERY = "INSERT INTO restaurant.payments(date, status, invoice_id, payment_methods_id) VALUES(?,?,?,?)";
-    private static final String GET_PAYMENT_METHODS_QUERY = "SELECT * FROM payments";
+    private static final String INSERT_INVOICE_QUERY = "INSERT INTO restaurant.invoices (order_id,user_id,cost,payment_id) VALUES(?,?,?,?)";
     private static final String GET_PAYMENT_BY_ID = "SELECT * FROM restaurant.payments where id = ?";
 
     private static final String GET_USER_INVOICES_QUERY = "SELECT * FROM restaurant.invoices where user_id = ?";
-
-    private static final String UNPAID = "unpaid";
-    private static final String SUCCESS = "success";
-    private static final int GENERATED_KEY = 1;
     private static final String GET_PAYMENT_TYPES_SQL = "SELECT * FROM restaurant.payments";
     private static final String EDIT_INVOICE_STATUS = "UPDATE restaurant.invoices SET payment_id=? where id=?";
 
 
 
     @Override
-    public void createInvoice(int orderId,int userId) throws ExceptionDAO {
-        ResultSet resultSet = null;
+    public void createInvoice(int orderId,int userId, double cost) throws ExceptionDAO {
         PreparedStatement preparedStatement = null;
         Connection connection = null;
 
+
         try {
             connection = connectionPool.takeConnection();
-
             preparedStatement = connection.prepareStatement(INSERT_INVOICE_QUERY);
             preparedStatement.setInt(1, orderId);
             preparedStatement.setInt(2, userId);
-            preparedStatement.setDouble(3, DAOFactory.getInstance().getOrderDAO().getOrder(resultSet.getInt(5)).getCost());
+            preparedStatement.setDouble(3, cost);
             preparedStatement.setInt(4, new Payment().getId());
+
             preparedStatement.executeUpdate();
             System.out.println(preparedStatement);
 
@@ -55,11 +49,9 @@ public class PaymentDAOImpl implements PaymentDAO {
         } catch (ExceptionConnectionPool e) {
             throw new RuntimeException(e);
         } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            connectionPool.closeConnection(connection, preparedStatement);
         }
     }
-
-
 
     @Override
     public List<Invoice> getUserInvoices(int userId) throws ExceptionDAO {
@@ -98,38 +90,6 @@ public class PaymentDAOImpl implements PaymentDAO {
         } finally {
             connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
-    }
-
-    @Override
-    public int createPayment(int invoiceId, int paymentMethodId) throws ExceptionDAO {
-//        ResultSet resultSet = null;
-//        PreparedStatement preparedStatement = null;
-//        Connection connection = null;
-//
-//        try {
-//            connection = connectionPool.takeConnection();
-//
-//            preparedStatement = connection.prepareStatement(INSERT_PAYMENT_QUERY, Statement.RETURN_GENERATED_KEYS);
-//            preparedStatement.setTimestamp (1, new Timestamp(System.currentTimeMillis()));
-//            preparedStatement.setString(2, SUCCESS);
-//            preparedStatement.setInt(3, invoiceId);
-//            preparedStatement.setInt(4, paymentMethodId);
-//            preparedStatement.executeUpdate();
-//
-//            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-//            generatedKeys.next();
-//
-//            return generatedKeys.getInt(GENERATED_KEY);
-//
-//        } catch (SQLException e) {
-//            throw new ExceptionDAO("Error when trying to create order", e);
-//        } catch (ExceptionConnectionPool e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//                connectionPool.closeConnection(connection, preparedStatement, resultSet);
-//
-//        }
-        return invoiceId;
     }
 
     @Override

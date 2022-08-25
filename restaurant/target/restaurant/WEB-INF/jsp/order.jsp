@@ -62,7 +62,8 @@
                                 ${orderEmptyText}
                             </c:if>
 							<br />
-
+								<form action="Controller" method="post">
+									<input type="hidden" name="command" value="save_order" />
 							<div class = "order_dish">
 
 								<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
@@ -122,8 +123,11 @@
 									</tr>
 								</c:forEach>
 							</table>
-</div>
 
+</div>
+<br>
+									<input type="submit" value="Save order">
+								</form>
 						</TD>
 						</TABLE>
 			</main>

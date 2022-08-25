@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface PaymentService {
-    void createInvoice(int orderId, int userId) throws ServiceException;
+    void createInvoice(int orderId, int userId, double cost) throws ServiceException;
     List<Invoice> getUserInvoices(int userId) throws ServiceException;
-    void createPayment(int invoiceId, int paymentMethodId) throws ServiceException;
     Payment getPayment(int id) throws ExceptionDAO, ServiceException;
     Map<Integer, String> getPaymentTypes() throws ServiceException;
     void confirmInvoice(int invoiceId, int paymentId) throws ServiceException;

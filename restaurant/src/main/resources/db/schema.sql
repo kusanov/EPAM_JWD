@@ -77,13 +77,14 @@ CREATE TABLE IF NOT EXISTS restaurant.orders (
   user_id INT UNSIGNED,
   visit_date DATE,
   status_id INT UNSIGNED,
+ cost DOUBLE,
  FOREIGN KEY (user_id) REFERENCES users(id),
  FOREIGN KEY (status_id) REFERENCES statuses(id)
 ) engine=InnoDB;
 
-INSERT IGNORE INTO restaurant.orders VALUES (1, 1, '2020-05-30', 1);
-INSERT IGNORE INTO restaurant.orders VALUES (2, 2, '2020-05-30', 2);
-INSERT IGNORE INTO restaurant.orders VALUES (3, 1, '2020-05-30', 2);
+INSERT IGNORE INTO restaurant.orders VALUES (1, 1, '2020-05-30', 2, 9.0);
+INSERT IGNORE INTO restaurant.orders VALUES (2, 2, '2020-05-30', 2, 5.0);
+INSERT IGNORE INTO restaurant.orders VALUES (3, 1, '2020-05-30', 1, 2.5);
 
 
 CREATE TABLE IF NOT EXISTS restaurant.order_details (
@@ -99,17 +100,18 @@ UNIQUE (order_id,menu_id)
 INSERT IGNORE INTO restaurant.order_details VALUES (1, 1, 2, 2);
 INSERT IGNORE INTO restaurant.order_details VALUES (1, 2, 2, 2.5);
 INSERT IGNORE INTO restaurant.order_details VALUES (2, 2, 1, 2.5);
+INSERT IGNORE INTO restaurant.order_details VALUES (3, 2, 1, 2.5);
 
 CREATE TABLE IF NOT EXISTS restaurant.invoices (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   order_id INT UNSIGNED,
   user_id INT UNSIGNED,
-  sum DOUBLE,
+  cost DOUBLE,
   payment_id INT UNSIGNED,
   FOREIGN KEY (order_id) REFERENCES orders(id),
  FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (payment_id) REFERENCES payments(id)
 ) engine=InnoDB;
 
-INSERT IGNORE INTO restaurant.invoices VALUES (1, 1, 2, 2.8, 1);
-INSERT IGNORE INTO restaurant.invoices VALUES (2, 2, 2, 2.5, 2);
+INSERT IGNORE INTO restaurant.invoices VALUES (1, 1, 1, 9.0, 1);
+INSERT IGNORE INTO restaurant.invoices VALUES (2, 2, 2, 5.0, 1);

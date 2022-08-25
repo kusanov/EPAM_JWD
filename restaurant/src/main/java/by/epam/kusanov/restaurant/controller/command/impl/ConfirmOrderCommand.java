@@ -37,15 +37,12 @@ public class ConfirmOrderCommand implements Command {
             OrderService orderService = serviceFactory.getOrderService();
             PaymentService paymentService = serviceFactory.getPaymentService();
 
-            System.out.println("0");
-
             orderService.confirmOrder(orderId);
-//            orderService.confirmOrder(1);
-            System.out.println("1");
 
+            paymentService.createInvoice(orderId,
+                    orderService.getOrder(orderId).getUser().getUserId(),
+                    orderService.getOrder(orderId).getCost());
 
-            paymentService.createInvoice(orderId,orderService.getOrder(orderId).getUser().getUserId());
-            System.out.println("2");
             resp.sendRedirect(ConfirmOrderCommand.REDIRECT_COMMAND_SUCCESS);
 
         } catch (ServiceException e) {

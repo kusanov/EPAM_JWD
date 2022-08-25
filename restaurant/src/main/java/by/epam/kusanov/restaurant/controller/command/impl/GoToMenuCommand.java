@@ -22,7 +22,6 @@ public class GoToMenuCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         DishService dishService = serviceFactory.getDishService();
-//
 
         try {
             req.setAttribute(MENU_REQ, dishService.getMenu());

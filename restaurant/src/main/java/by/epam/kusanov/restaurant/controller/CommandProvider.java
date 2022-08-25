@@ -25,11 +25,11 @@ final class CommandProvider {
         repository.put(CommandName.GO_TO_USER_ORDERS, new GoToUserOrdersPageCommand());
         repository.put(CommandName.GO_TO_USERS, new GoToUsersPageCommand());
         repository.put(CommandName.GO_TO_MENU, new GoToMenuCommand());
-        repository.put(CommandName.SHOW_DISH, new ShowDishCommand());
         repository.put(CommandName.DEL_FROM_ORDER, new DelFromOrderCommand());
         repository.put(CommandName.DEL_FROM_MENU, new DelDishFromMenuCommand());
         repository.put(CommandName.GET_ORDER, new GetOrderCommand());
         repository.put(CommandName.CONFIRM_ORDER, new ConfirmOrderCommand());
+        repository.put(CommandName.SAVE_ORDER, new SaveOrderCommand());
         repository.put(CommandName.CONFIRM_INVOICE, new ConfirmInvoiceCommand());
     }
     Command getCommand(String name){

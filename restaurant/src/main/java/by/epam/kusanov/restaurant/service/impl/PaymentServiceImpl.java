@@ -16,9 +16,9 @@ public class PaymentServiceImpl implements PaymentService {
     PaymentDAO paymentDAO = factory.getPaymentDAO();
 
     @Override
-    public void createInvoice(int orderId, int userId) throws ServiceException {
+    public void createInvoice(int orderId, int userId, double cost) throws ServiceException {
         try {
-            paymentDAO.createInvoice(orderId,userId);
+            paymentDAO.createInvoice(orderId,userId,cost);
 
         } catch (ExceptionDAO e) {
             throw new ServiceException(e);
@@ -29,15 +29,6 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Invoice> getUserInvoices(int userId) throws ServiceException {
         try {
             return paymentDAO.getUserInvoices(userId);
-        } catch (ExceptionDAO e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public void createPayment(int invoiceId, int paymentMethodId) throws ServiceException {
-        try {
-            paymentDAO.createPayment(invoiceId, paymentMethodId);
         } catch (ExceptionDAO e) {
             throw new ServiceException(e);
         }

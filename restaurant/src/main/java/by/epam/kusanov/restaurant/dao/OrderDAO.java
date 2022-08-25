@@ -21,4 +21,6 @@ public interface OrderDAO {
     OrderStatus getOrderStatus(int id) throws ExceptionDAO;
 
     List<Order> getKitchenOrders() throws ExceptionDAO;
+
+    void setCost(int orderId,double ordersum) throws ExceptionDAO;
 }

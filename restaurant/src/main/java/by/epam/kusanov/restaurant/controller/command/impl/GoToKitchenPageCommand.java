@@ -33,7 +33,6 @@ public class GoToKitchenPageCommand implements Command {
         }
 
         List<Order> kitchenOrders = orderService.getKitchenOrders();
-//
         if (kitchenOrders != null) {
             req.setAttribute(KITCHEN_ORDERS, kitchenOrders);
 
