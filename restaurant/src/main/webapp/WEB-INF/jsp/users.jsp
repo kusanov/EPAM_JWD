@@ -12,8 +12,12 @@
 			<fmt:setBundle basename="local" var="loc" />
 
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
-			<fmt:message bundle="${loc}" key="local.catalog.label.price" var="priceLabel" />
-			<fmt:message bundle="${loc}" key="local.catalog.label.currency" var="priceCurrency" />
+			<fmt:message bundle="${loc}" key="local.users.users" var="Users" />
+			<fmt:message bundle="${loc}" key="local.users.id" var="userId" />
+			<fmt:message bundle="${loc}" key="local.users.login" var="Login" />
+			<fmt:message bundle="${loc}" key="local.users.role" var="Role" />
+			<fmt:message bundle="${loc}" key="local.users.active" var="Active" />
+			<fmt:message bundle="${loc}" key="local.users.change" var="ChangeStatus" />
 
 
 
@@ -45,23 +49,19 @@
 
 						<TD WIDTH=60% VALIGN=TOP>
                                 <div class="item_block">
-																<h3>Users</h3>
+																<h3>${Users}</h3>
 																<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 																	<tr>
-																		<td>UserId</td>
-																		<td>Login</td>
-																		<td>Role</td>
-<%--																		<td>Status</td>--%>
-																		<td>Active</td>
+																		<td>${userId}</td>
+																		<td>${Login}</td>
+																		<td>${Role}</td>
+																		<td>${Active}</td>
 																	</tr>
 																	<c:forEach items="${requestScope.users_req}" var="user">
 																		<tr>
 																			<td>${user.userId}</td>
 																			<td>${user.login}</td>
 																			<td>${user.role.roleName}</td>
-<%--																			<td>--%>
-<%--	<input type="checkbox" name="checkActive" <c:if test="${user.isActive()}"> checked = "checked" </c:if>/>--%>
-<%--																			</td>--%>
 																			<td>
 																				<form action="Controller" method="post">
 																				<input type="hidden" name="command" value="block_user" />
@@ -72,7 +72,7 @@
 																								checked="checked"
 																							</c:if>
 																					/>
-																				<input type="submit" value="Изменить статус" />
+																				<input type="submit" value="${ChangeStatus}" />
 																			</form>
 																			</td>
 																		</tr>

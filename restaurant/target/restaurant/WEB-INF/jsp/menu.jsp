@@ -12,8 +12,12 @@
 			<fmt:setBundle basename="local" var="loc" />
 
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
-			<fmt:message bundle="${loc}" key="local.catalog.label.price" var="priceLabel" />
-			<fmt:message bundle="${loc}" key="local.catalog.label.currency" var="priceCurrency" />
+			<fmt:message bundle="${loc}" key="local.menu.category" var="Category" />
+			<fmt:message bundle="${loc}" key="local.menu.dish" var="Dish" />
+			<fmt:message bundle="${loc}" key="local.menu.description" var="Description" />
+			<fmt:message bundle="${loc}" key="local.menu.price" var="Price" />
+			<fmt:message bundle="${loc}" key="local.menu.delete" var="Delete" />
+			<fmt:message bundle="${loc}" key="local.menu.add" var="AddDish" />
 
 
 
@@ -50,11 +54,11 @@
 																<h3>Menu</h3>
 																<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 																	<tr>
-																		<td>Category</td>
-																		<td>Dish</td>
-																		<td>Description</td>
-																		<td>Price</td>
-																		<td>Delete</td>
+																		<td>${Category}</td>
+																		<td>${Dish}</td>
+																		<td>${Description}</td>
+																		<td>${Price}</td>
+																		<td>${Delete}</td>
 																	</tr>
 
 																	<c:forEach items="${requestScope.menu_req}" var="dish">
@@ -67,7 +71,7 @@
 																				<form action="Controller" method="post">
 																				<input type="hidden" name="command" value="del_from_menu" />
 																				<input type="hidden" name="dishId" value="${dish.dishId}" />
-																				<input type="submit" value="Удалить" />
+																				<input type="submit" value="${Delete}" />
 																			</form>
 																			</td>
 																		</tr>
@@ -77,7 +81,7 @@
 																		<form action="Controller" method="post">
 																			<input type="hidden" name="command" value="go_to_new_dish" />
 																			<input type="hidden" name="dishId" value="${dish.dishId}" />
-																			<input type="submit" value="Add Dish" />
+																			<input type="submit" value=${AddDish}" />
 																		</form>
 																		</td>
 																	</tr>

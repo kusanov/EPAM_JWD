@@ -11,7 +11,12 @@
 			<fmt:setLocale value="${sessionScope.local}" />
 			<fmt:setBundle basename="local" var="loc" />
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
-			<fmt:message bundle="${loc}" key="local.catalog.welcome.message" var="chooseMessage" />
+			<fmt:message bundle="${loc}" key="local.orders.orders" var="Orders" />
+			<fmt:message bundle="${loc}" key="local.orders.date" var="Date" />
+			<fmt:message bundle="${loc}" key="local.orders.cost" var="Cost" />
+			<fmt:message bundle="${loc}" key="local.orders.status" var="Status" />
+			<fmt:message bundle="${loc}" key="local.orders.invoices" var="Invoices" />
+			<fmt:message bundle="${loc}" key="local.orders.payment" var="Payment" />
 
 	</head>
 	<body>
@@ -41,13 +46,13 @@
 
 						<TD WIDTH=60% VALIGN=TOP>
 
-							<h3>Orders</h3>
+							<h3>${Orders}</h3>
 							<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 								<tr>
-									<td>Orders</td>
-									<td>Date</td>
-									<td>Cost</td>
-									<td>Status</td>
+									<td>${Orders}</td>
+									<td>${Date}</td>
+									<td>${Cost}</td>
+									<td>${Status}</td>
 								</tr>
 								<c:forEach items="${requestScope.user_orders}" var="order">
 									<tr>
@@ -60,13 +65,13 @@
 								</c:forEach>
 							</table>
 
-							<h3>Invoices</h3>
+							<h3>${Invoices}</h3>
 							<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 								<tr>
-									<td>Invoices</td>
-									<td>Sum</td>
-									<td>Status</td>
-									<td>Payment</td>
+									<td>${Invoices}</td>
+									<td>${Cost}</td>
+									<td>${Status}</td>
+									<td>${Payment}</td>
 								</tr>
 								<c:forEach items="${requestScope.user_invoices}" var="invoice">
 									<tr>

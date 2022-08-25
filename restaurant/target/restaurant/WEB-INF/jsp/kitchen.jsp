@@ -11,7 +11,10 @@
 			<fmt:setLocale value="${sessionScope.local}" />
 			<fmt:setBundle basename="local" var="loc" />
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
-			<fmt:message bundle="${loc}" key="local.catalog.welcome.message" var="chooseMessage" />
+			<fmt:message bundle="${loc}" key="local.kitchen.orders" var="Orders" />
+			<fmt:message bundle="${loc}" key="local.kitchen.date" var="Date" />
+			<fmt:message bundle="${loc}" key="local.kitchen.status" var="Status" />
+			<fmt:message bundle="${loc}" key="local.kitchen.ready" var="Ready" />
 
 	</head>
 	<body>
@@ -41,13 +44,13 @@
 
 						<TD WIDTH=60% VALIGN=TOP>
 
-							<h3>Orders</h3>
+							<h3>${Orders}</h3>
 							<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 								<tr>
-									<td>Orders</td>
-									<td>Date</td>
-									<td>Status</td>
-									<td>Ready</td>
+									<td>${Orders}</td>
+									<td>${Date}</td>
+									<td>${Status}</td>
+									<td>${Ready}</td>
 								</tr>
 								<c:forEach items="${requestScope.kitchen_orders}" var="order">
 									<tr>

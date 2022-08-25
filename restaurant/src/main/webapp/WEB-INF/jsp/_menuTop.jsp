@@ -15,9 +15,8 @@
             <fmt:message bundle="${loc}" key="local.menu.line.registration" var="RegistrationName" />
             <fmt:message bundle="${loc}" key="local.menu.line.main" var="MainName" />
             <fmt:message bundle="${loc}" key="local.menu.line.user_orders" var="UserOrders" />
-        <fmt:message bundle="${loc}" key="local.item.cart.neworder" var="NewOrder" />
-
-        <fmt:message bundle="${loc}" key="local.message" var="message" />
+            <fmt:message bundle="${loc}" key="local.menu.line.neworder" var="NewOrder" />
+            <fmt:message bundle="${loc}" key="local.message" var="message" />
 
     </head>
 

@@ -13,18 +13,16 @@
 			<fmt:setBundle basename="local" var="loc" />
 
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
-			<fmt:message bundle="${loc}" key="local.catalog.label.price" var="priceLabel" />
-			<fmt:message bundle="${loc}" key="local.catalog.label.currency" var="priceCurrency" />
-			<fmt:message bundle="${loc}" key="local.item.label.rating" var="ratingLabel" />
-			<fmt:message bundle="${loc}" key="local.item.cart.neworder" var="newOrder" />
-			<fmt:message bundle="${loc}" key="local.order.confirm.comment.text" var="confirmComment" />
-			<fmt:message bundle="${loc}" key="local.order.confirm.address.text" var="confirmAddress" />
-			<fmt:message bundle="${loc}" key="local.order.confirm.paymentType.text" var="confirmPaymentType" />
-			<fmt:message bundle="${loc}" key="local.order.confirm.submit.button" var="confirmSubmitBtn" />
-			<fmt:message bundle="${loc}" key="local.order.confirm.ok.message1" var="confirmOkMessage1" />
-			<fmt:message bundle="${loc}" key="local.order.confirm.ok.message2" var="confirmOkMessage2" />
-			<fmt:message bundle="${loc}" key="local.order.empty.text" var="orderEmptyText" />
-		<fmt:message bundle="${loc}" key="local.item.cart.addDishBtn" var="addDishBtn" />
+			<fmt:message bundle="${loc}" key="local.order.dish" var="Dish" />
+			<fmt:message bundle="${loc}" key="local.order.description" var="Description" />
+			<fmt:message bundle="${loc}" key="local.order.price" var="Price" />
+			<fmt:message bundle="${loc}" key="local.order.quantity" var="Quantity" />
+			<fmt:message bundle="${loc}" key="local.order.cost" var="Cost" />
+			<fmt:message bundle="${loc}" key="local.order.delete" var="Delete" />
+			<fmt:message bundle="${loc}" key="local.order.add" var="AddDish" />
+			<fmt:message bundle="${loc}" key="local.order.category" var="Category" />
+			<fmt:message bundle="${loc}" key="local.order.neworder" var="NewOrder" />
+
 
 	</head>
 	<body>
@@ -57,10 +55,6 @@
 
                             <h2>${newOrder} №${order.id}</h2>
 
-
-                            <c:if test="${empty requestScope.order.dishes}">
-                                ${orderEmptyText}
-                            </c:if>
 							<br />
 								<form action="Controller" method="post">
 									<input type="hidden" name="command" value="save_order" />
@@ -68,12 +62,12 @@
 
 								<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 									<tr>
-										<td>Блюдо</td>
-										<td>Description</td>
-										<td>Price</td>
-										<td>Количество</td>
-										<td>Сумма</td>
-										<td>Удалить</td>
+										<td>${Dish}</td>
+										<td>${Description}</td>
+										<td>${Price}</td>
+										<td>${Quantity}</td>
+										<td>${Cost}</td>
+										<td>${Delete}</td>
 									</tr>
 									<c:forEach items="${requestScope.order.dishes}" var="entry">
 
@@ -99,11 +93,11 @@
 								<h3>Menu</h3>
 							<table border="2" cellspacing="2" cellpadding="5" bgcolor="#9acd32">
 								<tr>
-									<td>Category</td>
-									<td>Dish</td>
-									<td>Description</td>
-									<td>Price</td>
-									<td>Add</td>
+									<td>${Category}</td>
+									<td>${Dish}</td>
+									<td>${Description}</td>
+									<td>${Price}</td>
+									<td>${AddDish}</td>
 								</tr>
 
 								<c:forEach items="${requestScope.menu}" var="dish">
@@ -117,7 +111,7 @@
 												<input type="hidden" name="command" value="add_dish" />
 												<input type="hidden" name="dishId" value="${dish.dishId}" />
 												<input type="number" size=2 name="quantity" min="1" max="100" value="1">
-												<input type="submit" value="${addDishBtn}" />
+												<input type="submit" value="${AddDish}" />
 											</form>
 										</td>
 									</tr>

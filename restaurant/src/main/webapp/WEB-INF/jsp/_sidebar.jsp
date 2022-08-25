@@ -10,7 +10,9 @@
 			<fmt:setLocale value="${sessionScope.local}" />
 			<fmt:setBundle basename="local" var="loc" />
 
-			<fmt:message bundle="${loc}" key="local.header.name" var="headerName" />
+			<fmt:message bundle="${loc}" key="local.sidebar.menu" var="MenuEditer" />
+			<fmt:message bundle="${loc}" key="local.sidebar.acsess" var="Acsess" />
+			<fmt:message bundle="${loc}" key="local.sidebar.kitchen" var="Kitchen" />
     </head>
 
     <body>
@@ -22,7 +24,7 @@
                             <c:if test="${sessionScope.user.role.roleId==1}">
                                 <form action="Controller" method="get" class="button_side_menu">
                                     <input type="hidden" name="command" value="go_to_menu" />
-                                    <input type="submit" value="Редактор меню" />
+                                    <input type="submit" value="${MenuEditer}" />
                                 </form>
                             </c:if>
                         </td>
@@ -32,7 +34,7 @@
                         <c:if test="${sessionScope.user.role.roleId==1}">
                             <form action="Controller" method="get" class="button_side_menu">
                                 <input type="hidden" name="command" value="go_to_users" />
-                                <input type="submit" value="Управление доступами" />
+                                <input type="submit" value=${Acsess} />
                             </form>
                         </c:if>
                     </td>
@@ -42,7 +44,7 @@
                         <c:if test="${sessionScope.user.role.roleId==1}">
                             <form action="Controller" method="get" class="button_side_menu">
                                 <input type="hidden" name="command" value="go_to_kitchen" />
-                                <input type="submit" value="Кухня" />
+                                <input type="submit" value=${Kitchen} />
                             </form>
                         </c:if>
                     </td>

@@ -52,9 +52,6 @@
 
                                 <table>
                                     <tr>
-<%--                                        <td WIDTH=20% VALIGN=TOP>--%>
-<%--                                            <div class="item_img_big"></div>--%>
-<%--                                        </td>--%>
 
                                         <td WIDTH=60% VALIGN=TOP>
 											<div class="new_dish">
@@ -110,7 +107,6 @@
 														</tr>
 													</table>
 
-
 													<input type="submit" value="${btnSubmitName}">
 												</form>
 											</div>
@@ -124,10 +120,8 @@
                             </div>
 				</TABLE>
 				<br />
-
 			</main>
 		</div>
-
 
 
 		<footer>
