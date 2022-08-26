@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ChangeLocaleCommand implements Command {
-
     private static final String REDIRECT_COMMAND = "?command=go_to_main";
     private static final String LAST_REQUEST_ATTR = "lastRequest";
     private static final String LOCAL_SESSION_ATTR = "local";

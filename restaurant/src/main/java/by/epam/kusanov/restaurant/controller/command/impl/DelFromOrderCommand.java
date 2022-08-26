@@ -4,6 +4,8 @@ import by.epam.kusanov.restaurant.controller.command.Command;
 import by.epam.kusanov.restaurant.service.OrderService;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
 import by.epam.kusanov.restaurant.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class DelFromOrderCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(DelFromOrderCommand.class);
 
     private static final String DISH_ID_ATTR = "dishId";
     private static final String ORDER_ID_ATTR = "orderId";
@@ -32,6 +35,7 @@ public class DelFromOrderCommand implements Command {
             resp.sendRedirect(REDIRECT_COMMAND);
 
         } catch (NumberFormatException | ServiceException e) {
+            LOGGER.error("Invalid address to redirect in DelFromOrderCommand", e);
             resp.sendRedirect(REDIRECT_COMMAND);
         }
     }

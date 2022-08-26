@@ -116,11 +116,14 @@
 										</td>
 									</tr>
 								</c:forEach>
+								<tr>
+									<td>
+									<input type="submit" value="Save order">
+									</td>
+								</tr>
 							</table>
 
-</div>
-<br>
-									<input type="submit" value="Save order">
+						</div>
 								</form>
 						</TD>
 						</TABLE>

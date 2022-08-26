@@ -7,6 +7,8 @@ import by.epam.kusanov.restaurant.dao.connection.ConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionDAO;
 import by.epam.kusanov.restaurant.dao.factory.DAOFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 public class PaymentDAOImpl implements PaymentDAO {
+    private static final Logger LOGGER = LogManager.getLogger(PaymentDAOImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     private static final String INSERT_INVOICE_QUERY = "INSERT INTO restaurant.invoices (order_id,user_id,cost,payment_id) VALUES(?,?,?,?)";
     private static final String GET_PAYMENT_BY_ID = "SELECT * FROM restaurant.payments where id = ?";
 
@@ -47,6 +49,7 @@ public class PaymentDAOImpl implements PaymentDAO {
         } catch (SQLException e) {
             throw new ExceptionDAO("Error when trying to create invoice", e);
         } catch (ExceptionConnectionPool e) {
+            LOGGER.error("Error to close connection...", e);
             throw new RuntimeException(e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);

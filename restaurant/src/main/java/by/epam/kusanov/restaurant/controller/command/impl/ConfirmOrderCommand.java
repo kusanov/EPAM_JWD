@@ -5,6 +5,8 @@ import by.epam.kusanov.restaurant.service.OrderService;
 import by.epam.kusanov.restaurant.service.PaymentService;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
 import by.epam.kusanov.restaurant.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ConfirmOrderCommand implements Command {
-    private static final String CATALOG_PAGE_URI = "WEB-INF/jsp/orders_invoices.jsp";
+    private static final Logger LOGGER = LogManager.getLogger(ConfirmInvoiceCommand.class);
     private static final String REDIRECT_COMMAND_SUCCESS = "?command=go_to_kitchen";
     private static final String REDIRECT_COMMAND_ERROR = "?command=go_to_login";
 
@@ -46,6 +48,7 @@ public class ConfirmOrderCommand implements Command {
             resp.sendRedirect(ConfirmOrderCommand.REDIRECT_COMMAND_SUCCESS);
 
         } catch (ServiceException e) {
+            LOGGER.error("Invalid address to redirect in ConfirmOrderCommand", e);
             resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
         }
     }

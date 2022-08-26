@@ -8,6 +8,8 @@ import by.epam.kusanov.restaurant.dao.connection.ConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionDAO;
 import by.epam.kusanov.restaurant.dao.factory.DAOFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderDAOImpl implements OrderDAO {
+    private static final Logger LOGGER = LogManager.getLogger(OrderDAOImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String GET_ORDER_BY_ID_SQL = "select * FROM restaurant.orders where id = ?";
     private static final String GET_STATUS = "select * FROM restaurant.statuses where id = ?";
     private static final String DELETE_ITEM_FROM_ORDER_SQL = "delete from restaurant.order_details where order_id = ? and menu_id = ?";
-    private static final String GET_CURRENT_ORDER_ID_BY_USER_SQL = "select * FROM restaurant.orders where id = ? and user_id = ?";
     private static final String GET_USER_ORDERS_SQL = "select * FROM restaurant.orders where user_id = ?";
     private static final String GET_KITCHEN_ORDERS_SQL = "select * FROM restaurant.orders where status_id = ?";
 
@@ -28,10 +30,6 @@ public class OrderDAOImpl implements OrderDAO {
             "insert into restaurant.order_details(order_id,menu_id,quantity,cost) " +
                     "select ? as order_id,? as menu_id,? as quantity," +
                     "(select t.price * quantity as cost from restaurant.menu t where t.id = menu_id)";
-    private static final String ADD_ITEM_TO_ORDER_SQL =
-            "insert into ishop.order_details(order_id,count,item_id,item_cost)" +
-            " select ? as order_id, ? as count, ? as item_id," +
-            " (select t.price * count as item_cost from ishop.items t where t.id = item_id)";
 
     private static final String CREATE_ORDER_QUERY = "INSERT INTO restaurant.orders (user_id, visit_date, status_id) VALUES (?, ?, ?)";
     private static final int GENERATED_KEYS = 1;
@@ -39,7 +37,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     private static final String EDIT_ORDER_STATUS = "UPDATE restaurant.orders SET status_id=? where id=?";
     private static final String SET_ORDER_COST = "UPDATE restaurant.orders SET cost=? where id=?";
-    private static final String TBL_COLUMN_ORDER_ID = "order_id";
 
 
     @Override
@@ -65,6 +62,7 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (SQLException e) {
             throw new ExceptionDAO("Error while adding new Order", e);
         } catch (ExceptionConnectionPool e) {
+            LOGGER.error("Error to close connection...", e);
             throw new RuntimeException(e);
         } finally {
             connectionPool.closeConnection(con, ps, rs);

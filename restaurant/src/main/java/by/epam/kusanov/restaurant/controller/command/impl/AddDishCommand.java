@@ -4,6 +4,8 @@ import by.epam.kusanov.restaurant.controller.command.Command;
 import by.epam.kusanov.restaurant.service.OrderService;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
 import by.epam.kusanov.restaurant.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class AddDishCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(AddDishCommand.class);
 
     private static final String REDIRECT_COMMAND_SUCCESS = "?command=get_order";
     private static final String REDIRECT_LOGIN_PAGE = "?command=go_to_login";
@@ -46,7 +49,8 @@ public class AddDishCommand implements Command {
 
                 resp.sendRedirect(AddDishCommand.REDIRECT_COMMAND_SUCCESS);
             } catch (IOException e) {
-                resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
+            LOGGER.error("Error to send error writer when try to add dish to order", e);
+            resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
             }
     }
 }

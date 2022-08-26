@@ -7,6 +7,8 @@ import by.epam.kusanov.restaurant.service.DishService;
 import by.epam.kusanov.restaurant.service.OrderService;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
 import by.epam.kusanov.restaurant.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,15 +19,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetOrderCommand implements Command {
-
+    private static final Logger LOGGER = LogManager.getLogger(GetOrderCommand.class);
     private static final String ORDER_PAGE_URI = "WEB-INF/jsp/order.jsp";
-    private static final String REDIRECT_COMMAND = "?command=get_order";
 
     private static final String REDIRECT_COMMAND_ERROR = "?command=go_to_login";
     private static final String ORDER_ID_ATTR = "orderId";
     private static final String ORDER_ATTR = "order";
-//    private static final String ORDER_REQ_ATTR = "order_req";
-    private static final String USER_ORDERS = "user_orders";
     private static final String USER_SESSION_ATTR = "user";
     private static final String USER_ID_SESSION_ATTR = "userId";
     private static final String MENU_ATTR = "menu";
@@ -48,17 +47,12 @@ public class GetOrderCommand implements Command {
                 resp.sendRedirect(REDIRECT_COMMAND_ERROR);
             return;
             }
-//
+
                 if (session.getAttribute(ORDER_ID_ATTR) == null) {
                     orderId = orderService.createNewOrder((Integer)session.getAttribute(USER_ID_SESSION_ATTR));
                 session.setAttribute(ORDER_ID_ATTR,orderId);
                     System.out.println(orderId);
                 }
-//                req.getAttribute(ORDER_ID_ATTR);
-
-//            if (session.getAttribute(ORDER_ATTR) == null) {
-//                order = orderService.getOrder((Integer) session.getAttribute(ORDER_ID_ATTR));
-//                session.setAttribute(ORDER_ATTR, order);}
             req.setAttribute(ORDER_ATTR,orderService.getOrder((Integer)session.getAttribute(ORDER_ID_ATTR)));
 
 
@@ -70,6 +64,7 @@ public class GetOrderCommand implements Command {
 
 
         } catch (ServiceException | NumberFormatException e) {
+            LOGGER.error("Invalid address to redirect in GetOrderCommand", e);
             resp.sendRedirect(REDIRECT_COMMAND_ERROR);
         }
     }

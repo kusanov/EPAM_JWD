@@ -7,12 +7,16 @@ import by.epam.kusanov.restaurant.dao.factory.DAOFactory;
 import by.epam.kusanov.restaurant.service.DishService;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
 import by.epam.kusanov.restaurant.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddDishToMenuCommand implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(AddDishToMenuCommand.class);
 
     private static final String REQUEST_PARAMETER_DISH_NAME = "dishName";
     private static final String REQUEST_PARAMETER_DISH_DESCRIPTION = "dishDescription";
@@ -43,6 +47,7 @@ public class AddDishToMenuCommand implements Command {
         try {
             resp.sendRedirect(AddDishToMenuCommand.REDIRECT_COMMAND_SUCCESS);
         } catch (IOException e) {
+            LOGGER.error("Error to send error writer when try to Add New Dish To Menu", e);
             resp.sendRedirect(REDIRECT_COMMAND_ERROR);
         }
 

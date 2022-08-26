@@ -22,7 +22,7 @@ public class GoToNewDishPageCommand implements Command {
         try {
             dispatcher.forward(req, resp);
         } catch (IOException e) {
-            LOGGER.error("Invalid address", e);
+            LOGGER.error("Invalid address to redirect in GoToNewDishPageCommand", e);
         }
     }
 }

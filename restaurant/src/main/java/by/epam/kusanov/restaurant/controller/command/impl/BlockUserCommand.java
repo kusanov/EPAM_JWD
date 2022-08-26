@@ -15,7 +15,6 @@ public class BlockUserCommand implements Command {
     private static final String REDIRECT_COMMAND_SUCCESS = "?command=go_to_users";
     private static final String USER_ID = "userId";
     private static final String ACTIVE = "active";
-//    private static final String USER_SESSION_ATTR = "user";
 
 
     @Override

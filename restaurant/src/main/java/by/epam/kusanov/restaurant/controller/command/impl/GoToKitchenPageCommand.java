@@ -36,7 +36,6 @@ public class GoToKitchenPageCommand implements Command {
         if (kitchenOrders != null) {
             req.setAttribute(KITCHEN_ORDERS, kitchenOrders);
 
-
             RequestDispatcher dispatcher = req.getRequestDispatcher(KITCHEN_PAGE_URI);
             dispatcher.forward(req, resp);
 

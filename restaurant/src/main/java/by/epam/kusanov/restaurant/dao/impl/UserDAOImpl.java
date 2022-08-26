@@ -7,12 +7,15 @@ import by.epam.kusanov.restaurant.dao.connection.ConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionDAO;
 import by.epam.kusanov.restaurant.dao.factory.DAOFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
+    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String INSERT_USER_SQL = "INSERT INTO restaurant.users  (login, user_password, role_id, user_status) VALUES  (?, ?, ?, ?)";
     private static final String SIGN_IN_SQL = "SELECT * FROM restaurant.users WHERE login = ? AND user_password = ?";
@@ -49,6 +52,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new ExceptionDAO("Error when trying to get users", e);
         } catch (ExceptionConnectionPool e) {
+            LOGGER.error("Error to close connection...", e);
             throw new RuntimeException(e);
 
 
@@ -64,10 +68,6 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = connectionPool.takeConnection();
-//            int status;
-//            if (active)
-//            status = 1;
-//            else status = 0;
 
             preparedStatement = connection.prepareStatement(BLOCK_USER);
             preparedStatement.setBoolean(1, active);
@@ -96,11 +96,14 @@ public class UserDAOImpl implements UserDAO {
             ps = con.prepareStatement(SIGN_IN_SQL);
             ps.setString(1, login);
             ps.setString(2, password);
-//            System.out.println(ps);
 
             rs = ps.executeQuery();
             if (!rs.next()) {
                 System.out.println("Пользователь с таким логином и паролем не найден.");
+                return null;
+            }
+            if (rs.getBoolean(5)==false) {
+                System.out.println("Пользователь с таким логином и паролем заблокирован.");
                 return null;
             }
 

@@ -8,12 +8,15 @@ import by.epam.kusanov.restaurant.dao.exception.ExceptionConnectionPool;
 import by.epam.kusanov.restaurant.dao.exception.ExceptionDAO;
 import by.epam.kusanov.restaurant.dao.factory.DAOFactory;
 import by.epam.kusanov.restaurant.service.exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DishDAOImpl implements DishDAO {
+    private static final Logger LOGGER = LogManager.getLogger(DishDAOImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String TBL_COLUMN_CATEGORY_ID = "id";
     private static final String TBL_COLUMN_CATEGORY_NAME = "category";
@@ -56,9 +59,8 @@ public class DishDAOImpl implements DishDAO {
         } catch (SQLException e) {
             throw new ExceptionDAO("Error when trying to get menu", e);
         } catch (ExceptionConnectionPool e) {
+            LOGGER.error("Error to close connection...", e);
             throw new RuntimeException(e);
-
-
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         } finally {
