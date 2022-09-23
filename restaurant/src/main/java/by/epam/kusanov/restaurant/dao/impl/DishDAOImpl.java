@@ -24,13 +24,15 @@ public class DishDAOImpl implements DishDAO {
     private static final String TBL_COLUMN_DISH_NAME = "dish";
     private static final String TBL_COLUMN_DESCRIPTION = "dish_description";
     private static final String TBL_COLUMN_PRICE = "price";
-    private static final String GET_ITEMS_BY_CATEGORY = "SELECT * FROM restaurant.menu where category_id = ?";
     private static final String GET_CATEGORY_BY_ID = "SELECT * FROM restaurant.categories where id = ?";
     private static final String GET_ALL_CATEGORIES_SQL = "select * from restaurant.categories";
     private static final String GET_DISH_BY_ID = "SELECT * FROM restaurant.menu where id = ?";
     private static final String GET_MENU = "SELECT * FROM restaurant.menu";
     private static final String INSERT_DISH_SQL = "INSERT INTO restaurant.menu  (category_id, dish, dish_description, price) VALUES  (?, ?, ?, ?)";
     private static final String DELETE_DISH_FROM_MENU = "delete from restaurant.menu where id = ?";
+    private static final String UPDATE_DISH_SQL =
+            "UPDATE restaurant.menu SET category_id = ?, dish = ?, dish_description = ?, price = ? WHERE id = ?";
+
 
 
     @Override
@@ -90,7 +92,8 @@ public class DishDAOImpl implements DishDAO {
                 System.out.println("Такое блюдо найдено.");
                return new Dish(
                         rs.getInt(TBL_COLUMN_DISH_ID),
-                        DAOFactory.getInstance().getDishDAO().getCategoryById(rs.getInt(2)),                        rs.getString(TBL_COLUMN_DISH_NAME),
+                        DAOFactory.getInstance().getDishDAO().getCategoryById(rs.getInt(2)),
+                        rs.getString(TBL_COLUMN_DISH_NAME),
                         rs.getString(TBL_COLUMN_DESCRIPTION),
                         rs.getDouble(TBL_COLUMN_PRICE)
                 );
@@ -108,28 +111,35 @@ public class DishDAOImpl implements DishDAO {
     }
 
     @Override
-    public void addDishToMenu(Dish dish) throws ExceptionDAO {
+    public void addOrUpdateDishToMenu(Dish dish) throws ExceptionDAO {
         PreparedStatement ps = null;
         Connection con = null;
 
         try {
             con = connectionPool.takeConnection();
-            ps = con.prepareStatement(INSERT_DISH_SQL);
 
-
+            if (dish.getDishId() == 0) {
+                ps = con.prepareStatement(INSERT_DISH_SQL);
+                ps.setInt(1, dish.getMenuCategory().getId());
+                ps.setString(2, dish.getDishName());
+                ps.setString(3, dish.getDishDescription());
+                ps.setDouble(4, dish.getPrice());
+            } else {
+                ps = con.prepareStatement(UPDATE_DISH_SQL);
             ps.setInt(1, dish.getMenuCategory().getId());
             ps.setString(2, dish.getDishName());
             ps.setString(3, dish.getDishDescription());
             ps.setDouble(4, dish.getPrice());
-
-
-            System.out.println(ps);
-            ps.executeUpdate();
+            ps.setInt(5, dish.getDishId());
+        }
+            System.out.println(dish.getDishId());
+                System.out.println(ps);
+                ps.executeUpdate();
 
         } catch (ExceptionConnectionPool e) {
-            throw new ExceptionDAO("Error in Connection pool while adding new User", e);
+            throw new ExceptionDAO("Error in Connection pool while adding new Dish", e);
         } catch (SQLException e) {
-            throw new ExceptionDAO("Error while adding new User", e);
+            throw new ExceptionDAO("Error while adding new Dish", e);
         } finally {
             connectionPool.closeConnection(con, ps);
         }
@@ -155,7 +165,6 @@ public class DishDAOImpl implements DishDAO {
             connectionPool.closeConnection(con, ps);
         }
     }
-
 
     @Override
     public MenuCategory getCategoryById(int categoryId) throws ServiceException, ExceptionDAO {
@@ -224,45 +233,6 @@ public class DishDAOImpl implements DishDAO {
             throw new ExceptionDAO("Error while find Categories", e);
         } finally {
             connectionPool.closeConnection(con, st, rs);
-        }
-    }
-    @Override
-    public List<Dish> getDishesByCategory(int id) throws ExceptionDAO {
-        PreparedStatement ps = null;
-        Connection con = null;
-        ResultSet rs = null;
-
-        try {
-            con = connectionPool.takeConnection();
-            ps = con.prepareStatement(GET_ITEMS_BY_CATEGORY);
-            ps.setInt(1, 1);
-
-            rs = ps.executeQuery();
-
-            if (rs == null) {
-                return null;
-            }
-
-            List<Dish> dishList = new ArrayList<>();
-
-            while (rs.next()) {
-                dishList.add(new Dish(
-                        rs.getInt(TBL_COLUMN_DISH_ID),
-                        (MenuCategory) rs.getObject(TBL_COLUMN_CATEGORY_ID),
-                        rs.getString(TBL_COLUMN_DISH_NAME),
-                        rs.getString(TBL_COLUMN_DESCRIPTION),
-                        rs.getDouble(TBL_COLUMN_PRICE)
-                ));
-            }
-            System.out.println(dishList);
-            return dishList;
-
-        } catch (ExceptionConnectionPool e) {
-            throw new ExceptionDAO("Error in Connection pool while find Items", e);
-        } catch (SQLException e) {
-            throw new ExceptionDAO("Error while find Items", e);
-        } finally {
-            connectionPool.closeConnection(con, ps, rs);
         }
     }
 }

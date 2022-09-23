@@ -11,11 +11,8 @@ public interface DishService {
 
     List<MenuCategory> getCategories() throws ServiceException;
     MenuCategory getCategoryById(int categoryId) throws ServiceException;
-    List<Dish> getDishesByCategory(int categoryId) throws ServiceException;
     List<Dish> getMenu() throws ServiceException;
     Dish getDishById(int dishId) throws ServiceException;
-    boolean addDishToMenu(Dish dish) throws ExceptionDAO, ServiceException;
+    boolean addOrUpdateDishToMenu(Dish dish) throws ExceptionDAO, ServiceException;
     boolean deleteDishFromMenu(int dishId) throws ExceptionDAO, ServiceException;
-
-
 }

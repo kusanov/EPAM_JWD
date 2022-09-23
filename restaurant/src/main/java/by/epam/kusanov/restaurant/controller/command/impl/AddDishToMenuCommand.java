@@ -18,6 +18,7 @@ public class AddDishToMenuCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(AddDishToMenuCommand.class);
 
+    private static final String REQUEST_PARAMETER_DISH_ID = "dishId";
     private static final String REQUEST_PARAMETER_DISH_NAME = "dishName";
     private static final String REQUEST_PARAMETER_DISH_DESCRIPTION = "dishDescription";
     private static final String REQUEST_PARAMETER_MENU_CATEGORY = "category";
@@ -30,11 +31,14 @@ public class AddDishToMenuCommand implements Command {
         Dish dish = new Dish();
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
+        int dishId = Integer.parseInt(req.getParameter(REQUEST_PARAMETER_DISH_ID));
+        System.out.println(dishId);
         String dishName = req.getParameter(REQUEST_PARAMETER_DISH_NAME);
         String dishDescription = req.getParameter(REQUEST_PARAMETER_DISH_DESCRIPTION);
         int categoryId = Integer.parseInt(req.getParameter(REQUEST_PARAMETER_MENU_CATEGORY));
         Double price = Double.valueOf(req.getParameter(REQUEST_PARAMETER_PRICE));
 
+        dish.setDishId(dishId);
         dish.setDishName(dishName);
         dish.setDishDescription(dishDescription);
         dish.setMenuCategory(DAOFactory.getInstance().getDishDAO().getCategoryById(categoryId));
@@ -42,7 +46,7 @@ public class AddDishToMenuCommand implements Command {
 
         DishService dishService = serviceFactory.getDishService();
 
-        dishService.addDishToMenu(dish);
+        dishService.addOrUpdateDishToMenu(dish);
 
         try {
             resp.sendRedirect(AddDishToMenuCommand.REDIRECT_COMMAND_SUCCESS);

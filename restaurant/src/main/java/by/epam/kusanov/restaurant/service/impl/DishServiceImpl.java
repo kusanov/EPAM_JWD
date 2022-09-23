@@ -33,17 +33,6 @@ public class DishServiceImpl implements DishService {
             throw new ServiceException("Error while find Category by ID", e);
         }    }
 
-    @Override
-    public List<Dish> getDishesByCategory(int categoryId) throws ServiceException {
-        if (categoryId < 1) {
-            return null;
-        }
-        try {
-            return dishDAO.getDishesByCategory(categoryId);
-        } catch (ExceptionDAO e) {
-            throw new ServiceException("Error while find Dishes by category", e);
-        }
-    }
 
     @Override
     public List<Dish> getMenu() throws ServiceException {
@@ -67,8 +56,8 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public boolean addDishToMenu(Dish dish) throws ExceptionDAO, ServiceException {
-        dishDAO.addDishToMenu(dish);
+    public boolean addOrUpdateDishToMenu(Dish dish) throws ExceptionDAO {
+        dishDAO.addOrUpdateDishToMenu(dish);
         return true;
     }
 

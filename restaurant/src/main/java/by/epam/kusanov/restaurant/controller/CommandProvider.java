@@ -22,6 +22,7 @@ final class CommandProvider {
         repository.put(CommandName.GO_TO_MAIN, new GoToMainPageCommand());
         repository.put(CommandName.GO_TO_KITCHEN, new GoToKitchenPageCommand());
         repository.put(CommandName.GO_TO_NEW_DISH, new GoToNewDishPageCommand());
+        repository.put(CommandName.GO_TO_EDIT_DISH, new GoToEditDishPageCommand());
         repository.put(CommandName.GO_TO_USER_ORDERS, new GoToUserOrdersPageCommand());
         repository.put(CommandName.GO_TO_USERS, new GoToUsersPageCommand());
         repository.put(CommandName.GO_TO_MENU, new GoToMenuCommand());

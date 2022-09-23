@@ -16,5 +16,6 @@ public interface UserService {
 
 
     void blockUser(int userId,boolean active) throws ServiceException, ExceptionDAO;
+
 }
 

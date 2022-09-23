@@ -6,14 +6,13 @@ public class MenuCategory implements Serializable {
     private int categoryId;
     private String categoryName;
 
+    public MenuCategory() {
+    }
+
     public MenuCategory(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
-    public MenuCategory(int categoryId) {
-        this.categoryId = 1;
-    }
-
     public int getId() {
         return categoryId;
     }

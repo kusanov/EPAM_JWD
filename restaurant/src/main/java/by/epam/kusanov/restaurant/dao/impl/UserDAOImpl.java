@@ -138,7 +138,7 @@ public class UserDAOImpl implements UserDAO {
 
 
             ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
+            ps.setString(2, String.valueOf(user.getPassword()));
             ps.setInt(3, new Role().getRoleId());
             ps.setBoolean(4, true);
 

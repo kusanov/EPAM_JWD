@@ -15,9 +15,9 @@ public interface DishDAO {
 
     List<MenuCategory> getCategories() throws ExceptionDAO;
     MenuCategory getCategoryById(int categoryId) throws ServiceException, ExceptionDAO;
-    List<Dish> getDishesByCategory(int categoryID) throws ExceptionDAO;
     Dish getDishById(int dishId) throws ExceptionDAO;
 
-    void addDishToMenu(Dish dish) throws ExceptionDAO;
+    void addOrUpdateDishToMenu(Dish dish) throws ExceptionDAO;
     void deleteDishFromMenu(int dishId) throws ExceptionDAO;
+
 }

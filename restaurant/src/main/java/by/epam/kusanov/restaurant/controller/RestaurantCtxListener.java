@@ -30,7 +30,7 @@ public class RestaurantCtxListener implements ServletContextListener {
 
         try {
             ConnectionPool.getInstance().initPoolData();
-            servletContext.setAttribute(MENU_APP, dishService.getMenu());
+//            servletContext.setAttribute(MENU_APP, dishService.getMenu());
             servletContext.setAttribute(MENU_CATEGORIES_APP, dishService.getCategories());
             servletContext.setAttribute(PAYMENT_TYPES_MAP_ATTR, paymentService.getPaymentTypes());
         } catch (ExceptionConnectionPool e) {

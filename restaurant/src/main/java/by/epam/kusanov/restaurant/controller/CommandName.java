@@ -3,6 +3,7 @@ package by.epam.kusanov.restaurant.controller;
 public enum CommandName {
     ADD_TO_MENU,
     DEL_FROM_MENU,
+    GO_TO_EDIT_DISH,
     BLOCK_USER,
     SIGN_IN,
     SIGN_OUT,

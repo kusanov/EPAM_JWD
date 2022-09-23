@@ -17,6 +17,7 @@
 			<fmt:message bundle="${loc}" key="local.menu.description" var="Description" />
 			<fmt:message bundle="${loc}" key="local.menu.price" var="Price" />
 			<fmt:message bundle="${loc}" key="local.menu.delete" var="Delete" />
+			<fmt:message bundle="${loc}" key="local.menu.update" var="Update" />
 			<fmt:message bundle="${loc}" key="local.menu.add" var="AddDish" />
 
 
@@ -59,6 +60,7 @@
 																		<td>${Description}</td>
 																		<td>${Price}</td>
 																		<td>${Delete}</td>
+																		<td>${Update}</td>
 																	</tr>
 
 																	<c:forEach items="${requestScope.menu_req}" var="dish">
@@ -74,13 +76,20 @@
 																				<input type="submit" value="${Delete}" />
 																			</form>
 																			</td>
+																			<td>
+																				<form action="Controller" method="post">
+																					<input type="hidden" name="command" value="go_to_edit_dish" />
+																					<input type="hidden" name="dishId" value="${dish.dishId}" />
+																					<input type="submit" value="${Update}" />
+																				</form>
+																			</td>
 																		</tr>
 																	</c:forEach>
 																	<tr>
 																		<td>
 																		<form action="Controller" method="post">
 																			<input type="hidden" name="command" value="go_to_new_dish" />
-																			<input type="hidden" name="dishId" value="${dish.dishId}" />
+<%--																			<input type="hidden" name="dishId" value="${dish.dishId}" />--%>
 																			<input type="submit" value=${AddDish}" />
 																		</form>
 																		</td>
